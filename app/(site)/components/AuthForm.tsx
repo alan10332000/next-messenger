@@ -1,7 +1,11 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import { signIn, useSession } from 'next-auth/react'
+import { useState, useEffect, useCallback } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
 
 import AuthSocialButton from './AuthSocialButton'
@@ -12,8 +16,14 @@ import Input from '@/app/components/Input/Input'
 type Variant = 'LOGIN' | 'REGISTER'
 
 const AuthForm = () => {
+  const session = useSession()
+  const router = useRouter()
   const [variant, setVariant] = useState<Variant>('LOGIN')
   const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    if (session?.status === 'authenticated') router.push('/users')
+  }, [session?.status, router])
 
   const toggleVariant = useCallback(() => {
     if (variant === 'LOGIN') setVariant('REGISTER')
@@ -32,9 +42,42 @@ const AuthForm = () => {
     },
   })
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {}
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    setIsLoading(true)
 
-  const socialAction = (action: string) => {}
+    try {
+      if (variant === 'REGISTER') await axios.post('/api/register', data)
+
+      const callback = await signIn('credentials', {
+        ...data,
+        redirect: false,
+      })
+
+      if (callback?.error) return toast.error('Invalid credentials!')
+
+      if (callback?.ok) return toast.success('Logged in!')
+    } catch (error) {
+      toast.error('Something went wrong!')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const socialAction = async (action: string) => {
+    setIsLoading(true)
+
+    try {
+      const callback = await signIn(action, { redirect: false })
+
+      if (callback?.error) return toast.error('Invalid credentials!')
+
+      if (callback?.ok) return toast.success('Logged in!')
+    } catch (error) {
+      toast.error('Something went wrong!')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
