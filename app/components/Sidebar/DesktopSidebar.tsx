@@ -1,11 +1,18 @@
 'use client'
+import { User } from '@prisma/client'
 
 import DesktopItem from './DesktopItem'
 
 import useRoutes from '@/app/hooks/useRoutes'
 
-const DesktopSidebar = () => {
+interface DesktopSidebarProps {
+  currentUser: User
+}
+
+const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
   const routes = useRoutes()
+
+  console.log('currentUser', { currentUser })
 
   return (
     <div className="hidden justify-between lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:flex lg:w-20 lg:flex-col lg:overflow-y-auto lg:border-r lg:bg-white lg:pb-4 xl:px-6">
