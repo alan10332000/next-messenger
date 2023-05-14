@@ -63,7 +63,21 @@ const AuthForm = () => {
     }
   }
 
-  const socialAction = (action: string) => {}
+  const socialAction = async (action: string) => {
+    setIsLoading(true)
+
+    try {
+      const callback = await signIn(action, { redirect: false })
+
+      if (callback?.error) return toast.error('Invalid credentials!')
+
+      if (callback?.ok) return toast.success('Logged in!')
+    } catch (error) {
+      toast.error('Something went wrong!')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
