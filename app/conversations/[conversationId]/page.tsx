@@ -1,14 +1,18 @@
+import Body from './components/Body'
+import Form from './components/Form'
 import Header from './components/Header'
 
 import getConversationById from '@/app/actions/getConversationById'
+import getMessages from '@/app/actions/getMessages'
 import EmptyState from '@/app/components/EmptyState'
 
 interface IParams {
   conversationId: string
 }
 
-const ChatId = async ({ params }: { params: IParams }) => {
+const ConversationId = async ({ params }: { params: IParams }) => {
   const conversation = await getConversationById(params.conversationId)
+  const messages = await getMessages(params.conversationId)
 
   if (!conversation) {
     return (
@@ -24,9 +28,11 @@ const ChatId = async ({ params }: { params: IParams }) => {
     <div className="h-full lg:pl-80">
       <div className="flex h-full flex-col">
         <Header conversation={conversation} />
+        <Body initialMessages={messages} />
+        <Form />
       </div>
     </div>
   )
 }
 
-export default ChatId
+export default ConversationId
