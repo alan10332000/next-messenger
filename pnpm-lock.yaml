@@ -25,6 +25,9 @@ dependencies:
   next-auth:
     specifier: ^4.22.1
     version: 4.22.1(next@13.4.2)(react-dom@18.2.0)(react@18.2.0)
+  next-cloudinary:
+    specifier: ^4.10.0
+    version: 4.10.0(next@13.4.2)(react@18.2.0)
   next-superjson-plugin:
     specifier: ^0.5.7
     version: 0.5.7(next@13.4.2)(superjson@1.12.3)
@@ -43,6 +46,9 @@ dependencies:
   react-icons:
     specifier: ^4.8.0
     version: 4.8.0(react@18.2.0)
+  zustand:
+    specifier: ^4.3.8
+    version: 4.3.8(react@18.2.0)
 
 devDependencies:
   '@tailwindcss/forms':
@@ -103,6 +109,29 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.11
+
+  /@cloudinary-util/url-loader@3.6.1:
+    resolution: {integrity: sha512-VxyJ1PhkDMhGay9Z8kdFlNwD13cGQdW+GoW0dj67FRHG5Csl9h6qeizPw/bWsDj9lBcRVZGBlLKEwDECXQAukg==}
+    dependencies:
+      '@cloudinary-util/util': 2.0.1
+      '@cloudinary/url-gen': 1.10.0
+    dev: false
+
+  /@cloudinary-util/util@2.0.1:
+    resolution: {integrity: sha512-d2imgUjYTLjv8ZhZPMAts/uPbMvIE71X4I/5hwdY/7vM4BuFQoJMSyq+h2pW1z1MyGG9BOWBm70vp082lSrbEQ==}
+    dev: false
+
+  /@cloudinary/transformation-builder-sdk@1.2.8:
+    resolution: {integrity: sha512-Rxvt/tjzTNzHDvH2l5ZLky/ahp60pHf51uLfzkFA/Mrh6Uj8aMHne0TRbYvpaH4t8l9wLGcdK6SbBqKVzlN16A==}
+    dependencies:
+      '@cloudinary/url-gen': 1.10.0
+    dev: false
+
+  /@cloudinary/url-gen@1.10.0:
+    resolution: {integrity: sha512-J3V+gzT6Tepw9bMrR3prWVbW22cIFJtPS8Wkt1WFSZVHWpZx8/vv9ACHaxUmRqaSkjhX8ErsuzDY5YxdWnaCbw==}
+    dependencies:
+      '@cloudinary/transformation-builder-sdk': 1.2.8
+    dev: false
 
   /@eslint-community/eslint-utils@4.4.0(eslint@8.40.0):
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}
@@ -2254,6 +2283,19 @@ packages:
       uuid: 8.3.2
     dev: false
 
+  /next-cloudinary@4.10.0(next@13.4.2)(react@18.2.0):
+    resolution: {integrity: sha512-yOoG0jFO4y8+hLR+07W2QkTvFKKe6padKVpemEnkaOV/HxBnoHhB4gjXoHIUEVc9aKjEsji+3ViwwFzWR4ukMA==}
+    peerDependencies:
+      next: ^12 || ^13
+      react: ^17 || ^18
+    dependencies:
+      '@cloudinary-util/url-loader': 3.6.1
+      '@cloudinary-util/util': 2.0.1
+      '@cloudinary/url-gen': 1.10.0
+      next: 13.4.2(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+    dev: false
+
   /next-superjson-plugin@0.5.7(next@13.4.2)(superjson@1.12.3):
     resolution: {integrity: sha512-bkF49B/Pcf0GCh10vXL+hjBodC404FgzEsl3wtrjwqvTkoWDnqBOgP2KqWR9sF1tz4MSMlo872Q4Srl/2XRFWw==}
     peerDependencies:
@@ -3228,6 +3270,14 @@ packages:
       punycode: 2.3.0
     dev: true
 
+  /use-sync-external-store@1.2.0(react@18.2.0):
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
@@ -3315,4 +3365,20 @@ packages:
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+    dev: false
+
+  /zustand@4.3.8(react@18.2.0):
+    resolution: {integrity: sha512-4h28KCkHg5ii/wcFFJ5Fp+k1J3gJoasaIbppdgZFO4BPJnsNxL0mQXBSFgOgAdCdBj35aDTPvdAJReTMntFPGg==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
