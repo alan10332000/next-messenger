@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 
 import getCurrentUser from '@/app/actions/getCurrentUser'
 import prisma from '@/app/libs/prisma'
+import { pusherServer } from '@/app/libs/pusher'
 
 interface IParams {
   conversationId?: string
@@ -42,10 +43,37 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       return NextResponse.json(conversation)
     }
 
+    // update seen of last message
+    const updatedMessage = await prisma.message.update({
+      where: {
+        id: lastMessage.id,
+      },
+      include: {
+        sender: true,
+        seen: true,
+      },
+      data: {
+        seen: {
+          connect: {
+            id: currentUser.id,
+          },
+        },
+      },
+    })
+
+    // update all connections with new seen
+    await pusherServer.trigger(currentUser.email, 'conversation:update', {
+      id: conversationId,
+      messages: [updatedMessage],
+    })
+
     // if user has already seen the message, no need to go further
     if (lastMessage.seenIds.indexOf(currentUser.id) !== -1) {
       return NextResponse.json(conversation)
     }
+
+    // update last message seen
+    await pusherServer.trigger(conversationId!, 'message:update', updatedMessage)
 
     return new NextResponse('Success')
   } catch (error) {
