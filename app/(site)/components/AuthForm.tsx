@@ -22,7 +22,7 @@ const AuthForm = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    if (session?.status === 'authenticated') router.push('/users')
+    if (session?.status === 'authenticated') router.push('/conversations')
   }, [session?.status, router])
 
   const toggleVariant = useCallback(() => {
@@ -55,7 +55,10 @@ const AuthForm = () => {
 
       if (callback?.error) return toast.error('Invalid credentials!')
 
-      if (callback?.ok) return toast.success('Logged in!')
+      if (callback?.ok) {
+        toast.success('Logged in!')
+        router.push('/conversations')
+      }
     } catch (error) {
       toast.error('Something went wrong!')
     } finally {
@@ -71,7 +74,10 @@ const AuthForm = () => {
 
       if (callback?.error) return toast.error('Invalid credentials!')
 
-      if (callback?.ok) return toast.success('Logged in!')
+      if (callback?.ok) {
+        toast.success('Logged in!')
+        router.push('/conversations')
+      }
     } catch (error) {
       toast.error('Something went wrong!')
     } finally {
