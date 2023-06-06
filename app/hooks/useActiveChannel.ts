@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react'
 import { Channel, Members } from 'pusher-js'
 import { useEffect, useState } from 'react'
 
@@ -6,10 +7,13 @@ import { pusherClient } from '../libs/pusher'
 import useActiveList from './useActiveList'
 
 const useActiveChannel = () => {
+  const { data: session, status } = useSession()
   const { add, remove, set } = useActiveList()
   const [activeChannel, setActiveChannel] = useState<Channel | null>(null)
 
   useEffect(() => {
+    if (!session || status !== 'authenticated') return
+
     let channel = activeChannel
 
     if (!channel) {
@@ -38,7 +42,7 @@ const useActiveChannel = () => {
         setActiveChannel(null)
       }
     }
-  }, [activeChannel, add, remove, set])
+  }, [activeChannel, add, remove, set, session, status])
 }
 
 export default useActiveChannel
