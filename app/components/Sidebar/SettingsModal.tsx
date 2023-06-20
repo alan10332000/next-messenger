@@ -69,7 +69,15 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentU
             <p className="mt-1 text-sm leading-6 text-gray-600">Edit your public information.</p>
 
             <div className="mt-10 flex flex-col gap-y-8">
-              <Input disabled={isLoading} label="Name" id="name" errors={errors} required register={register} />
+              <Input
+                disabled={isLoading}
+                label="Name"
+                id="name"
+                autoComplete="name"
+                errors={errors}
+                required
+                register={register}
+              />
               <div>
                 <label htmlFor="photo" className="block text-sm font-medium leading-6 text-gray-900">
                   Photo

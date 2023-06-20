@@ -64,7 +64,15 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({ isOpen, onClose, users 
             <h2 className="text-base font-semibold leading-7 text-gray-900">Create a group chat</h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">Create a chat with more than 2 people.</p>
             <div className="mt-10 flex flex-col gap-y-8">
-              <Input disabled={isLoading} label="Name" id="name" errors={errors} required register={register} />
+              <Input
+                disabled={isLoading}
+                label="Name"
+                id="name"
+                autoComplete="name"
+                errors={errors}
+                required
+                register={register}
+              />
               <Select
                 disabled={isLoading}
                 label="Members"

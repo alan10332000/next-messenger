@@ -90,7 +90,15 @@ const AuthForm = () => {
       <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {variant === 'REGISTER' && (
-            <Input disabled={isLoading} register={register} errors={errors} required id="name" label="Name" />
+            <Input
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+              id="name"
+              autoComplete="name"
+              label="Name"
+            />
           )}
           <Input
             disabled={isLoading}
@@ -99,6 +107,7 @@ const AuthForm = () => {
             required
             pattern={/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g}
             id="email"
+            autoComplete="email"
             label="Email address"
             type="email"
           />
@@ -109,6 +118,7 @@ const AuthForm = () => {
             required
             pattern={/^.{6,}$/}
             id="password"
+            autoComplete={variant === 'REGISTER' ? 'new-password' : 'current-password'}
             label="Password"
             type="password"
           />
