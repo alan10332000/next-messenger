@@ -90,15 +90,18 @@ const AuthForm = () => {
       <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {variant === 'REGISTER' && (
-            <Input
-              disabled={isLoading}
-              register={register}
-              errors={errors}
-              required
-              id="name"
-              autoComplete="name"
-              label="Name"
-            />
+            <>
+              <Input
+                disabled={isLoading}
+                register={register}
+                errors={errors}
+                required
+                id="name"
+                autoComplete="name"
+                label="Name"
+              />
+              {errors?.name && <div className="!mt-2 text-rose-500">Please enter a name.</div>}
+            </>
           )}
           <Input
             disabled={isLoading}
@@ -111,6 +114,7 @@ const AuthForm = () => {
             label="Email address"
             type="email"
           />
+          {errors?.email && <div className="!mt-2 text-rose-500">Please enter a valid email format.</div>}
           <Input
             disabled={isLoading}
             register={register}
@@ -122,6 +126,9 @@ const AuthForm = () => {
             label="Password"
             type="password"
           />
+          {errors?.password && (
+            <div className="!mt-2 text-rose-500">Please enter a password with at least 6 characters.</div>
+          )}
           <div>
             <Button disabled={isLoading} fullWidth type="submit">
               {variant === 'LOGIN' ? 'Sign in' : 'Register'}
