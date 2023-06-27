@@ -15,6 +15,7 @@ This is a repository for a Real-Time Messenger Clone with Next.js: Next.js 13, R
 - File and image upload using Cloudinary CDN
 - Client form validation and handling using react-hook-form
 - Server error handling with react-toast
+- State management using Zustand
 - Creating and managing chat rooms and channels
 - Message read receipts
 - Online/offline user status
